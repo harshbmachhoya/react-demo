@@ -1,0 +1,64 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "React post",
+      "body": "React for frontend"
+    },
+    {
+      "id": 2,
+      "title": "Redux post",
+      "body": "Redux for storing multiple state"
+    },
+    {
+      "id": 3,
+      "title": "Node post",
+      "body": "Node for API call"
+    },
+    {
+      "title": "a",
+      "body": "b",
+      "id": 4
+    },
+    {
+      "title": "fsdfsd",
+      "body": "dfsdf",
+      "id": 5
+    },
+    {
+      "title": "Harsh",
+      "body": "Machhoya",
+      "id": 6
+    },
+    {
+      "title": "aa",
+      "body": "dsfdsf",
+      "id": 7
+    },
+    {
+      "title": "aa",
+      "body": "New desc",
+      "id": 8
+    },
+    {
+      "title": "aa",
+      "body": "222",
+      "id": 9
+    },
+    {
+      "title": "Mongo",
+      "body": "Mongo content",
+      "id": 10
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
