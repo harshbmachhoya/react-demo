@@ -33,7 +33,7 @@
     transform: rotate(360deg);
   }
 }
-.login-form {
+.login-form, .home {
   max-width: 400px;
   position: fixed;
   top: 50%;
@@ -50,4 +50,13 @@
 .login-form-button {
   width: 100%;
 }
-
+body{
+  background-image: url("./assets/f3ba941bf2e3531a1bc0b3aa5ca07acf.jpg");
+  background-repeat: round;
+}
+.upload-list-inline .ant-upload-animate-enter {
+  animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+  animation-name: uploadAnimateInlineOut;
+}

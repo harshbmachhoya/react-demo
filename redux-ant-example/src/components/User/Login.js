@@ -54,7 +54,7 @@ class Login extends Component {
         const { auth } = this.props;
         debugger
         return (
-            <div>
+            <div className="login">
                 {this.props.auth.isAuthenticated || localStorage.getItem('jwtToken') ? (
                     this.props.history.push('/main')
                     // <Redirect to={{

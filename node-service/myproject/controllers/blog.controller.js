@@ -8,13 +8,26 @@ exports.create = (req, res) => {
             message: "Note blog title can not be empty"
         });
     }
+    console.log(req, req.body);
     //Create a blog
     const blog = new Blog({
         title: req.body.title || "Untitled Note",
-        body: req.body.body
+        body: req.body.body,
+        file: req.body.files.file
     });
+    const file = req.body.files.file;
+
+
     blog.save()
         .then(data => {
+            fiile.mv(`${__dirname}/redux-ant-example/public/uploads/${file.name}`, err => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send(err);
+                }
+                res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+            });
+
             res.send(data);
         }).catch(err => {
             res.status(500).send({
@@ -68,7 +81,8 @@ exports.update = (req, res) => {
     // Find note and update it with the request body
     Blog.findByIdAndUpdate(req.params.blogId, {
         title: req.body.title || "Untitled Note",
-        body: req.body.body
+        body: req.body.body,
+        file: req.body.file
     }, { new: true })
         .then(blog => {
             if (!blog) {

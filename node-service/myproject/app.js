@@ -6,6 +6,7 @@ var logger = require('morgan');
 const bodyParser = require('body-parser');
 var cors = require('cors');
 const passport = require('passport');
+const fileUpload = require('express-fileupload');
 
 require("./config/database.config");
 
@@ -17,6 +18,8 @@ var app = express();
 
 app.use(passport.initialize());
 require('./config/validation/passport')(passport);
+
+app.use(fileUpload());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

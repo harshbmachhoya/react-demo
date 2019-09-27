@@ -33,12 +33,16 @@ class App extends Component {
             <Route path={"/register"} exact component={Register} />
             {/* {console.log(store)} */}
             {/* {isAuthenticated} */}
-            {this.state.isAuthenticated ? <MainLayout path={"/main"} exact>
+            {/* {this.state.isAuthenticated
+              ? */}
+            <MainLayout path={"/main"} exact>
               {/* <Route path={"/main"} exact component={Home} /> */}
               <Route path={"/post"} component={Post} />
               <Route path={"/add"} exact component={PostsForm} />
               <Route path={"/edit/:id"} exact component={PostsForm} />
-            </MainLayout> : <Redirect to="/"></Redirect>}
+            </MainLayout>
+            {/* :
+              <Redirect to="/"></Redirect>} */}
             {/* <PrivateRoute exact path="/protected" component={Post} auth={false} /> */}
 
           </div>

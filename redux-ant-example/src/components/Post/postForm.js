@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react"; //'useState' can be use instead of state,setstate().
 import { Form, Input, Button, Radio, Icon, Upload } from "antd";
 import { connect } from "react-redux";
 import { addPost, getPostById, fetchPosts, updatePost } from "../../actions/postsAction";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import FileUpload from "../File/FileUpload";
 
 class PostsForm extends Component {
   constructor() {
@@ -13,7 +14,9 @@ class PostsForm extends Component {
       post: null,
       isLoaded: false,
       postData: {},
-      isEdit: false
+      isEdit: false,
+      file: '',
+      fileName: ''
     };
 
     this.ShowThisFormOnEdit = this.ShowThisFormOnEdit.bind(this);
@@ -47,6 +50,14 @@ class PostsForm extends Component {
     console.log("Updated");
   }
 
+  onChangeValueHandler = val => {
+    debugger
+    console.log("Change", val);
+    this.setState({
+      file: val.target.files[0],
+      fileName: val.target.files[0].name
+    });
+  };
   // handleFormLayoutChange = e => {
   //   this.setState({ formLayout: e.target.value });
   // };
@@ -55,6 +66,7 @@ class PostsForm extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        debugger
         if (this.props.match.params.id) {
           this.props.updatePost(this.props.match.params.id, values)
             .then(() => {
@@ -75,7 +87,12 @@ class PostsForm extends Component {
       }
     });
   };
-
+  handleUploadImage = (e) => {
+    this.setState({ file: e.target.files[0] });
+    this.setState({ fileName: e.target.files[0].name });
+    debugger
+    this.state.file = e.target.files[0];
+  }
   ShowThisFormOnEdit = (buttonItemLayout, formItemLayout, post, isedit, getFieldDecorator, formLayout) => {
     const props2 = {
       action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -110,7 +127,7 @@ class PostsForm extends Component {
               />
             )}
           </Form.Item>
-          <Form.Item label="Upload" extra="h">
+          <Form.Item label="Upload" >
             {getFieldDecorator('upload', {
               valuePropName: 'fileList',
               getValueFromEvent: this.normFile,
@@ -121,8 +138,6 @@ class PostsForm extends Component {
                   <Icon type="upload" /> Upload
             </Button>
               </Upload>
-
-
               // <Upload name="logo" action="/upload.do" listType="picture">
               //   <Button>
               //     <Icon type="upload" /> Click to upload
@@ -145,7 +160,7 @@ class PostsForm extends Component {
       </div>
     );
   }
-  ShowThisFormOnAdd = (buttonItemLayout, formItemLayout, post, isedit, getFieldDecorator, formLayout) => {
+  ShowThisFormOnAdd = (buttonItemLayout, formItemLayout, post, isedit, getFieldDecorator, formLayout, props2) => {
     return (
       <div>
         <Form onSubmit={this.handleSubmit} layout={formLayout}>
@@ -170,16 +185,20 @@ class PostsForm extends Component {
               />
             )}
           </Form.Item>
-          <Form.Item label="Upload" extra="">
-            {getFieldDecorator('upload', {
-              valuePropName: 'fileList',
-              getValueFromEvent: this.normFile,
-            })(
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button>
-                  <Icon type="upload" /> Click to upload
+
+          {/* <Form.Item label="Upload" extra="">
+            {/* <Upload {...props2}>
+              <Button>
+                <Icon type="upload" /> Click to upload
               </Button>
-              </Upload>,
+            </Upload> */}
+          {/*  <Input onChange={this.handleUploadImage} style={{ paddingLeft: '12px', width: 'auto' }} type="file" name="file" id="exampleFile" />
+          </Form.Item> */}
+          <Form.Item label="File" {...formItemLayout}>
+            {getFieldDecorator("file", {
+              rules: [{ required: true, message: "Please input description!" }],
+            })(
+              <FileUpload onChangeValue={this.onChangeValueHandler} />
             )}
           </Form.Item>
           <Form.Item {...buttonItemLayout}>
@@ -189,13 +208,14 @@ class PostsForm extends Component {
             </Button>
             {/* </Link> */}
           </Form.Item>
-
-
         </Form>
       </div>
     );
   }
   render() {
+    // const [file, setFile] = useState('');
+    // const [filename, setFilename] = useState('Choose File');
+
     const { getFieldDecorator } = this.props.form;
     const { formLayout, isLoading } = this.state;
     const post = this.props.postData;
@@ -217,10 +237,15 @@ class PostsForm extends Component {
             wrapperCol: { span: 14, offset: 4 }
           }
           : null;
-
+      const props2 = {
+        action: '',
+        listType: 'picture',
+        defaultFileList: [],
+        className: 'upload-list-inline',
+      };
       if (this.props.location.pathname === "/add") {
         console.log("add");
-        return this.ShowThisFormOnAdd(buttonItemLayout, formItemLayout, post, isedit, getFieldDecorator, formLayout)
+        return this.ShowThisFormOnAdd(buttonItemLayout, formItemLayout, post, isedit, getFieldDecorator, formLayout, props2)
       } else {
         console.log("edit");
         return this.ShowThisFormOnEdit(buttonItemLayout, formItemLayout, post, isedit, getFieldDecorator, formLayout)

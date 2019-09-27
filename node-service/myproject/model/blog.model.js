@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const BlogSchema = mongoose.Schema({
     title: String,
-    body: String
+    body: String,
+    file: String
 },
     {
         timestamps: true

@@ -9,7 +9,7 @@ export default class Home extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="home">
                 <h1>Login required</h1>
                 <Button onClick={this.goToLogin.bind(this)}>Go to Login</Button>
             </div>

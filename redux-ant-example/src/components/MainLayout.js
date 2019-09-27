@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
     Layout, Menu, Icon
 } from 'antd';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from '../actions/authentication';
@@ -116,7 +116,8 @@ class MainLayout extends Component {
                     </Layout>
                 ) :
                     //this.props.history.push('/')
-                    null
+                    <Redirect to="/login" />
+                    // null
                 }
 
             </div>

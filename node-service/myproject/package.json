@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "^4.16.4",
+    "express-fileupload": "^1.1.6-alpha.5",
     "gravatar": "^1.8.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
